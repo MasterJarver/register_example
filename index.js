@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser'); // считывает url и разбивает его, данные будут доступны в req.body
 const app = express();
-const port = 3000;
+const config = require('./config/app');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/online-store');
+mongoose.connect(config.mongoUri);
 const Product = mongoose.model('Product', {
     id: Number,
     name: String,
@@ -41,7 +41,7 @@ app.delete('/products/:id', (req, res) => {
         .exec()
         .then(() => res.json({success: true}));
 });
-app.listen(port, (err) => {
+app.listen(config.appPort, (err) => {
     if(err) throw err;
     // eslint-disable-next-line
     console.log('server start on 3000 port');
