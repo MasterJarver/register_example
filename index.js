@@ -1,14 +1,10 @@
+require('./models/product');
 const express = require('express');
 const bodyParser = require('body-parser'); // считывает url и разбивает его, данные будут доступны в req.body
 const app = express();
 const config = require('./config/app');
 const mongoose = require('mongoose');
 mongoose.connect(config.mongoUri);
-const Product = mongoose.model('Product', {
-    id: Number,
-    name: String,
-    price: mongoose.Schema.Types.Decimal128
-});
 app.use(bodyParser.json()); // используем json как формат для передачи данных, функция use добавляет middleware
 const products = [
     {
